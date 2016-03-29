@@ -1,6 +1,7 @@
 package com.injung.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -8,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.injung.domain.FriendVO;
 import com.injung.domain.UserVO;
 
 
@@ -73,8 +75,34 @@ public class UserDAOImpl implements UserDAO{
 		return userVO;
 	}
 
+	//friend
 	
-	
+	@Override
+	   public List<FriendVO> friendlist(long memNo) throws Exception {
+	      List<FriendVO> friendlist = session.selectList(namespace+".friendlist", memNo);
+	      return friendlist;
+	   }
+
+	   @Override
+	   public void addfriend(long memNo, long friendNo) throws Exception {
+	      Map<String, Long> numMap = new HashMap<String, Long>();
+	      numMap.put("memNo", memNo);
+	      numMap.put("friendNo", friendNo);
+	      session.insert(namespace+".addfriend", numMap);
+	      
+	   }
+
+	   @Override
+	   public Long getfriend(String friendId) throws Exception {
+	      Long friendNo = session.selectOne(namespace+".getfriend", friendId);
+	      return friendNo;
+	      
+	   }
+
+	   @Override
+	   public void deletefriend(long friendNo) throws Exception {
+	      session.delete(namespace+".deletefriend", friendNo);      
+	   }
 
 	
 

@@ -4,6 +4,7 @@
  
  <typeAliases>
  <typeAlias alias="UserVO" type="com.injung.domain.UserVO"/>
+ <typeAlias alias="FriendVO" type="com.injung.domain.FriendVO"/>
  </typeAliases>
  <mappers>
 		<mapper resource="/mappers/user.xml" />

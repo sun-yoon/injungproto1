@@ -1,10 +1,12 @@
 package com.injung.service;
 
+import java.util.List;
+
 import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Service;
 
+import com.injung.domain.FriendVO;
 import com.injung.domain.UserVO;
 import com.injung.persistence.UserDAO;
 
@@ -74,6 +76,47 @@ public class UserServiceImpl implements UserService{
 		UserVO userVO = dao.findPw(vo);
 		return userVO;
 	}
+	
+	//friend
+	
+	@Override
+	   public List<FriendVO> friendlist(long memNo) throws Exception {
+	      List<FriendVO> friendlist = dao.friendlist(memNo); 
+	      
+	      return friendlist;
+	   }
+
+	   @Override
+	   public int addfriend(long memNo, String friendId) throws Exception {
+	      List<FriendVO> friendlist = this.friendlist(memNo);
+	      UserVO userVO = this.getUser(memNo);
+	      
+	      for(int i=0;i<friendlist.size();i++) {
+	         if(friendId.equals(friendlist.get(i).getFriendId())) {
+	            return 1;
+	         }
+	      }
+	      
+	      Long friendNo = dao.getfriend(friendId);
+	      System.out.println("친구번호 : "+friendNo);
+	      if(friendNo == null) {
+	         System.out.println("아이디가 없습니다.");
+	         return 2;
+	      }
+	      else if(friendId.equals(userVO.getId())) {
+	         return 4;
+	      }
+	      else {
+	         dao.addfriend(memNo, friendNo);
+	         return 3;
+	      }      
+	      
+	   }
+
+	   @Override
+	   public void deletefriend(long friendNo) throws Exception {
+	      dao.deletefriend(friendNo);      
+	   }
 
 	
 

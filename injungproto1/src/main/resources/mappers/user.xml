@@ -88,5 +88,37 @@
             and mem_email = #{email }
             and mem_name= #{name }
 		]]>	
-	</select>				
+	</select>	
+	
+	
+	<!--friend -->
+	<select id="friendlist" parameterType="long" resultType="FriendVo">
+      <![CDATA[
+         select f.fri_snum friendNo, m.mem_id friendId, m.mem_profile profile 
+         from fri_list f, member m
+         where f.fri_mem_snum = m.mem_snum and f.mem_snum = #{memNo }
+      ]]>
+   </select>
+   
+   <select id="getfriend" parameterType="string" resultType="long">
+      <![CDATA[
+         select mem_snum
+         from member
+         where mem_id = #{friendId }
+      ]]>
+   </select>
+   
+   <insert id="addfriend" parameterType="map">
+      <![CDATA[
+         insert
+         into fri_list
+         values(seq_fri_snum.nextval, null, #{memNo}, #{friendNo } )
+      ]]>
+   </insert>   
+   <delete id="deletefriend" parameterType="long">
+      <![CDATA[
+            delete from fri_list
+            where fri_snum=#{friendNo }
+       ]]>
+   </delete>			
 </mapper>

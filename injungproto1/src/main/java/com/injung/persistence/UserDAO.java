@@ -1,6 +1,9 @@
 package com.injung.persistence;
 
 
+import java.util.List;
+
+import com.injung.domain.FriendVO;
 import com.injung.domain.UserVO;
 
 
@@ -17,6 +20,8 @@ public interface UserDAO {
 	public void update(UserVO vo) throws Exception;
 	public UserVO findId(UserVO vo) throws Exception;
 	public UserVO findPw(UserVO vo) throws Exception;
-	
-	
+	public List<FriendVO> friendlist(long memNo) throws Exception;
+	public void addfriend(long memNo, long friendNo) throws Exception;
+	public Long getfriend(String friendId) throws Exception;
+	public void deletefriend(long friendNo) throws Exception;
 }

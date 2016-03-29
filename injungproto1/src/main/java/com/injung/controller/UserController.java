@@ -169,6 +169,31 @@ public class UserController {
 		
 	}
 	
+	//friend
+	
+	@RequestMapping(value="/friendlist", method = RequestMethod.GET)
+	   public void friendlist(@AuthUser UserVO authUser, Model model) throws Exception {
+	      long memNo = authUser.getNo();
+	      model.addAttribute("friendlist", service.friendlist(memNo));
+	   }
+	   
+	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
+	   public String addfriend(@RequestParam("friendId") String friendId, @AuthUser UserVO authUser) throws Exception {
+	      long memNo = authUser.getNo();
+	            
+	      int type = service.addfriend(memNo ,friendId);
+	      
+	      return "redirect:/user/friendlist?a="+type;
+	   }
+	   
+	   @RequestMapping(value="/deletefriend",  method = RequestMethod.POST)
+	   public String deletefriend(@RequestParam("deletebtn") long friendNo) throws Exception {
+	      System.out.println(friendNo);
+	      service.deletefriend(friendNo);
+	      return "redirect:/user/friendlist";
+	   }
+	
+	
 	
 }
 
