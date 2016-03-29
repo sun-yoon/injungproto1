@@ -4,8 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -13,11 +11,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.injung.annotation.AuthUser;
@@ -178,12 +176,15 @@ public class UserController {
 	   }
 	   
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
-	   public String addfriend(@RequestParam("friendId") String friendId, @AuthUser UserVO authUser) throws Exception {
+	   @ResponseBody
+	   public int addfriend(@RequestBody String friendId, @AuthUser UserVO authUser) throws Exception {
 	      long memNo = authUser.getNo();
-	            
-	      int type = service.addfriend(memNo ,friendId);
+	      System.out.println(friendId);
+	      System.out.println(memNo);
+	      int type = service.addfriend(memNo ,friendId);	    
 	      
-	      return "redirect:/user/friendlist?a="+type;
+	      return type;
+	      
 	   }
 	   
 	   @RequestMapping(value="/deletefriend",  method = RequestMethod.POST)

@@ -104,8 +104,6 @@ small {
 		<!--  header -->
 		<c:import url="/WEB-INF/views/include/header2.jsp"></c:import>
 
-
-
 		<div class="hero-caption">
 			<div class="hero-text">
 				<h3 class="m-b-30">Friend List</h3>
@@ -140,37 +138,13 @@ small {
 							</c:forEach>
 					</table>
 
-					<form id="addfriend" action="/user/addfriend" method="post">
-						<label class="block-label" for="friend">친구 추가</label> <input
-							type="text" id="friendId" name="friendId"> <input
-							type="submit" value="친구추가">
-						<c:choose>
-							<c:when test="${param.a eq 1 }">
-         이미 친구로 등록되어 있습니다.
-         </c:when>
-							<c:when test="${param.a eq 2 }">
-         없는 회원입니다.
-         </c:when>
-							<c:when test="${param.a eq 3 }">
-         등록되었습니다.
-         </c:when>
-							<c:when test="${param.a eq 4 }">
-         자신의 ID는 친구등록 할 수 없습니다.
-         </c:when>
-							<c:otherwise>
-							</c:otherwise>
-						</c:choose>
-					</form>
-
-
+					<label class="block-label" for="friend">친구 추가</label> 
+					<input type="text" id="friendId-input" name="friendId-input"> 
+					<button id="addfriend-btn" type="button">친구추가</button>
+					<div class="add-message"></div>						
 				</div>
 			</div>
 		</div>
-		
-
-
-
-
 
 	<!-- JAVASCRIPT FILES -->
 	<script src="/resources/assets/js/jquery-2.1.4.min.js"></script>
@@ -193,5 +167,45 @@ small {
 	<script src="/resources/assets/js/listall.js"></script>
 	<script
 		src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+		
+		
+		<script type="text/javascript">
+		$("#addfriend-btn").on("click", function() {				
+			var friendId = $("#friendId-input").val();
+			if(friendId=="") {
+				return;
+			}
+			var str = "";
+			
+			$.ajax({
+				url : '/user/addfriend',
+				data : friendId,
+				dataType : 'text',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success : function(response) {
+											
+					if(response==1) {
+						str = "<div>이미 친구로 등록되어 있습니다.</div>";
+					}
+					else if(response==2) {
+						str = "<div>없는 회원입니다.</div>";
+					}
+					else if(response==3) {
+						str = "<div>등록되었습니다.</div>";
+					}
+					else if(response==4) {
+						str = "<div>자신의 ID는 등록할 수 없습니다.</div>";
+					}
+					else {
+						str = "";
+					}
+					$(".add-message").append(str);
+				}
+			})
+		})		
+	</script>
+	
 </body>
 </html>
