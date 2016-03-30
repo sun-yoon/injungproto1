@@ -90,6 +90,7 @@ small {
 	font-weight: bold;
 	color: gray;
 }
+
 </style>
 </head>
 
@@ -125,8 +126,7 @@ small {
 							<td><img src='displayFile?fileName=${friendVO.profile}' /></td>
 							<td>${friendVO.friendId}</td>
 							<td>								
-								<button class="delete-btn" name="delete-btn" type="button"
-									value="${friendVO.friendNo}">삭제</button>
+								<button class="delete-btn" type="button" value="${friendVO.friendNo}">삭제</button>
 							</td>
 						</tr>
 							</c:forEach>
@@ -205,7 +205,7 @@ small {
 					for(var i=0;i<friendlist.length;i++) {
 						tablestr += "<tr><td><img src='displayFile?fileName="+friendlist[i].profile+"' /></td><td>"+
 								friendlist[i].friendId+"</td><td>"+
-								"<button class=\"delete-btn\" name=\"delete-btn\" type=\"button\" value="+friendlist[i].friendNo+">삭제</button>"+
+								"<button class=\"delete-btn\" type=\"button\" value="+friendlist[i].friendNo+">삭제</button>"+
 								"</form></td></tr>";
 					}					
 					
@@ -216,9 +216,9 @@ small {
 			})
 		})
 		
-		$(".delete-btn").on("click", function() {
+		$(".delete-btn").on("click", function(event) {
 			alert("클릭됨");
-			var friendNo = $(".delete-btn").val();
+			var friendNo = event.target.value;
 			alert("클릭된 버튼"+friendNo);
 			$.ajax({				
 				url : '/user/deletefriend',
@@ -240,7 +240,7 @@ small {
 					for(var i=0;i<friendlist.length;i++) {
 						tablestr += "<tr><td><img src='displayFile?fileName="+friendlist[i].profile+"' /></td><td>"+
 								friendlist[i].friendId+"</td><td>"+
-								"<button class=\"delete-btn\" name=\"delete-btn\" type=\"button\" value="+friendlist[i].friendNo+">삭제</button>"+
+								"<button class=\"delete-btn\" type=\"button\" value="+friendlist[i].friendNo+">삭제</button>"+
 								"</form></td></tr>";
 					}					
 					
