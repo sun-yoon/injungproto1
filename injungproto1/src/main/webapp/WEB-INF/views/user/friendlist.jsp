@@ -108,7 +108,7 @@ small {
 			<div class="hero-text">
 				<h3 class="m-b-30">Friend List</h3>
 				
-				<table border="1">
+				<table id="friendlist-tb" border="1">
 						<tr>
 							<th>
 								<h2>프로필</h2>
@@ -121,19 +121,15 @@ small {
 							</th>
 						</tr>
 							<c:forEach items="${friendlist}" var="friendVO">
-						<tr>
-							
+						<tr>							
 							<td><img src='displayFile?fileName=${friendVO.profile}' /></td>
-
 							<td>${friendVO.friendId}</td>
-
 							<td>
 								<form id="deletefriend" action="/user/deletefriend" method="post">
 								<button id="deletebtn" name="deletebtn" type="submit"
 									value="${friendVO.friendNo}">삭제</button>
 									</form>
 							</td>
-
 						</tr>
 							</c:forEach>
 					</table>
@@ -141,7 +137,7 @@ small {
 					<label class="block-label" for="friend">친구 추가</label> 
 					<input type="text" id="friendId-input" name="friendId-input"> 
 					<button id="addfriend-btn" type="button">친구추가</button>
-					<div class="add-message"></div>						
+					<div id="add-message"></div>						
 				</div>
 			</div>
 		</div>
@@ -184,8 +180,7 @@ small {
 				processData: false,
 				contentType: false,
 				type: 'POST',
-				success : function(response) {
-											
+				success : function(response) {											
 					if(response==1) {
 						str = "<div>이미 친구로 등록되어 있습니다.</div>";
 					}
@@ -201,7 +196,15 @@ small {
 					else {
 						str = "";
 					}
-					$(".add-message").append(str);
+					var addmessage = document.getElementById("add-message");
+					addmessage.innerHTML = str;
+					
+					var tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>"+
+									"<tr><td>dd</td><td>ddd</td><td>dddd</td></tr>";
+					
+					var friendtable = document.getElementById("friendlist-tb");
+					friendtable.innerHTML = tablestr;
+					
 				}
 			})
 		})		

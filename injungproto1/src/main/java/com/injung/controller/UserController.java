@@ -1,6 +1,7 @@
 package com.injung.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.injung.annotation.AuthUser;
+import com.injung.domain.FriendVO;
 import com.injung.domain.UserVO;
 import com.injung.service.UserService;
 
@@ -180,12 +182,15 @@ public class UserController {
 	
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
 	   @ResponseBody
-	   public int addfriend(@RequestBody String friendId, @AuthUser UserVO authUser) throws Exception {
+	   public int addfriend(@RequestBody String friendId, @AuthUser UserVO authUser, Model model) throws Exception {
 	      long memNo = authUser.getNo();
-	      System.out.println(friendId);
-	      System.out.println(memNo);
-	      int type = service.addfriend(memNo ,friendId);	    
+	      int type = service.addfriend(memNo ,friendId);
 	      
+	      List<FriendVO> friendlist = service.friendlist(memNo);
+	      FriendVO friend = service.getfriend(memNo, friendId);
+	      friendlist.add(friend);
+	      model.addAttribute("friendlist", service.friendlist(memNo));
+
 	      return type;
 	      
 	   }

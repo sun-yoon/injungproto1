@@ -108,6 +108,14 @@
       ]]>
    </select>
    
+   <select id="friendone" parameterType="map" resultType="FriendVO">
+      <![CDATA[
+         select f.fri_snum friendNo, m.mem_id friendId, m.mem_profile profile 
+         from fri_list f, member m
+         where f.fri_mem_snum = m.mem_snum and f.fri_mem_snum = #{friendNo } and f.mem_snum = #{memNo }
+      ]]>
+   </select>
+   
    <insert id="addfriend" parameterType="map">
       <![CDATA[
          insert
