@@ -124,11 +124,9 @@ small {
 						<tr>							
 							<td><img src='displayFile?fileName=${friendVO.profile}' /></td>
 							<td>${friendVO.friendId}</td>
-							<td>
-								<form id="deletefriend" action="/user/deletefriend" method="post">
-								<button id="deletebtn" name="deletebtn" type="submit"
+							<td>								
+								<button class="delete-btn" name="delete-btn" type="button"
 									value="${friendVO.friendNo}">삭제</button>
-									</form>
 							</td>
 						</tr>
 							</c:forEach>
@@ -206,8 +204,8 @@ small {
 					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
 					for(var i=0;i<friendlist.length;i++) {
 						tablestr += "<tr><td><img src='displayFile?fileName="+friendlist[i].profile+"' /></td><td>"+
-								friendlist[i].friendId+"</td><td><form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
-								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+
+								friendlist[i].friendId+"</td><td>"+
+								"<button class=\"delete-btn\" name=\"delete-btn\" type=\"button\" value="+friendlist[i].friendNo+">삭제</button>"+
 								"</form></td></tr>";
 					}					
 					
@@ -216,7 +214,41 @@ small {
 					
 				}
 			})
-		})		
+		})
+		
+		$(".delete-btn").on("click", function() {
+			alert("클릭됨");
+			var friendNo = $(".delete-btn").val();
+			alert("클릭된 버튼"+friendNo);
+			$.ajax({				
+				url : '/user/deletefriend',
+				headers : {
+		            "Content-Type" : "application/json",
+		            "X-HTTP-Method-Override" : "POST"
+		         },
+				data : friendNo,
+				dataType : 'json',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function(result) {
+					alert("ajax 작동");
+					var friendlist = result.data;
+					
+					var tablestr = "";
+					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
+					for(var i=0;i<friendlist.length;i++) {
+						tablestr += "<tr><td><img src='displayFile?fileName="+friendlist[i].profile+"' /></td><td>"+
+								friendlist[i].friendId+"</td><td>"+
+								"<button class=\"delete-btn\" name=\"delete-btn\" type=\"button\" value="+friendlist[i].friendNo+">삭제</button>"+
+								"</form></td></tr>";
+					}					
+					
+					var friendtable = document.getElementById("friendlist-tb");
+					friendtable.innerHTML = tablestr;
+				}
+			})
+		})
 	</script>
 	
 </body>

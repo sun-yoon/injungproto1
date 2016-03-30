@@ -198,10 +198,19 @@ public class UserController {
 	   }
 	   
 	   @RequestMapping(value="/deletefriend",  method = RequestMethod.POST)
-	   public String deletefriend(@RequestParam("deletebtn") long friendNo) throws Exception {
-	      System.out.println(friendNo);
+	   @ResponseBody
+	   public Map<String, Object> deletefriend(@RequestBody long friendNo, @AuthUser UserVO authUser) throws Exception {
+		   long memNo = authUser.getNo();
+		   
 	      service.deletefriend(friendNo);
-	      return "redirect:/user/friendlist";
+	      
+	      List<FriendVO> friendlist = service.friendlist(memNo);      
+	      
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      
+	      map.put("data", friendlist);
+
+	      return map;
 	   }
 	
 	
