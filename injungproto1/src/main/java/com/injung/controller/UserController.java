@@ -175,6 +175,9 @@ public class UserController {
 	      model.addAttribute("friendlist", service.friendlist(memNo));
 	   }
 	   
+	
+	
+	
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
 	   @ResponseBody
 	   public int addfriend(@RequestBody String friendId, @AuthUser UserVO authUser) throws Exception {
