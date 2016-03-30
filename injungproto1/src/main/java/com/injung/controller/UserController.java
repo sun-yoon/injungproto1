@@ -182,16 +182,18 @@ public class UserController {
 	
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
 	   @ResponseBody
-	   public int addfriend(@RequestBody String friendId, @AuthUser UserVO authUser, Model model) throws Exception {
+	   public Map<String, Object> addfriend(@RequestBody String friendId, @AuthUser UserVO authUser) throws Exception {
 	      long memNo = authUser.getNo();
 	      int type = service.addfriend(memNo ,friendId);
 	      
-	      List<FriendVO> friendlist = service.friendlist(memNo);
-	      FriendVO friend = service.getfriend(memNo, friendId);
-	      friendlist.add(friend);
-	      model.addAttribute("friendlist", service.friendlist(memNo));
+	      List<FriendVO> friendlist = service.friendlist(memNo);      
+	      
+	      Map<String, Object> map = new HashMap<String, Object>();
+	      
+	      map.put("data", friendlist);
+	      map.put("type", type);
 
-	      return type;
+	      return map;
 	      
 	   }
 	   

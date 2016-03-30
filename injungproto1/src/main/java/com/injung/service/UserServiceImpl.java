@@ -116,16 +116,6 @@ public class UserServiceImpl implements UserService{
 	   @Override
 	   public void deletefriend(long friendNo) throws Exception {
 	      dao.deletefriend(friendNo);      
-	   }
-
-	@Override
-	public FriendVO getfriend(long memNo, String friendId) throws Exception {
-		long friendNo = dao.getfriend(friendId);
-		FriendVO friend = dao.friendone(memNo, friendNo);
-		
-		return friend;
-	}
-
-	
+	   }	
 
 }

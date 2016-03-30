@@ -176,21 +176,22 @@ small {
 			$.ajax({
 				url : '/user/addfriend',
 				data : friendId,
-				dataType : 'text',
+				dataType : 'json',
 				processData: false,
 				contentType: false,
 				type: 'POST',
-				success : function(response) {											
-					if(response==1) {
+				success : function(result) {
+					var type = result.type;
+					if(type==1) {
 						str = "<div>이미 친구로 등록되어 있습니다.</div>";
 					}
-					else if(response==2) {
+					else if(type==2) {
 						str = "<div>없는 회원입니다.</div>";
 					}
-					else if(response==3) {
+					else if(type==3) {
 						str = "<div>등록되었습니다.</div>";
 					}
-					else if(response==4) {
+					else if(type==4) {
 						str = "<div>자신의 ID는 등록할 수 없습니다.</div>";
 					}
 					else {
@@ -199,8 +200,16 @@ small {
 					var addmessage = document.getElementById("add-message");
 					addmessage.innerHTML = str;
 					
-					var tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>"+
-									"<tr><td>dd</td><td>ddd</td><td>dddd</td></tr>";
+					var friendlist = result.data;
+					
+					var tablestr = "";
+					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
+					for(var i=0;i<friendlist.length;i++) {
+						tablestr += "<tr><td><img src='displayFile?fileName="+friendlist[i].profile+"' /></td><td>"+
+								friendlist[i].friendId+"</td><td><form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
+								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+
+								"</form></td></tr>";
+					}					
 					
 					var friendtable = document.getElementById("friendlist-tb");
 					friendtable.innerHTML = tablestr;
