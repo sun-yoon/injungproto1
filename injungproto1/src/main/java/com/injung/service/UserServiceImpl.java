@@ -119,9 +119,18 @@ public class UserServiceImpl implements UserService{
 	   }
 
 	@Override
-	public FriendVO checkfriend(long memNo, long no) throws Exception {
+	public FriendVO checkfriend(long memNo, long no) throws Exception {		
 		FriendVO friendVo = dao.checkfriend(memNo, no);
-		return friendVo;
+		FriendVO fakefriend = new FriendVO();
+		fakefriend.setFriendNo(0);
+		
+		if(friendVo != null) {
+			return friendVo;
+		}
+		else {
+			return fakefriend;
+		}
+		
 	}	
 
 }

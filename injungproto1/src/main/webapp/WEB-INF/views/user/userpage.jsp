@@ -230,7 +230,7 @@
 		alert("page in");
 		var friend = ${friendVO.friendNo};
 		
-		if(friend==null) {
+		if(friend==0) {
 			$("#addfriend-btn").show();
 			$("#deletefriend-btn").hide();
 		}

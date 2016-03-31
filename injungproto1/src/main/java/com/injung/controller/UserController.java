@@ -104,9 +104,7 @@ public class UserController {
 		UserVO uservo = service.getUser(no);
 		model.addAttribute(uservo);
 		model.addAttribute(friendvo);
-		
-		
-		
+				
 	}
 	
 	@RequestMapping( value="/remove", method = RequestMethod.GET )
@@ -189,9 +187,15 @@ public class UserController {
 	
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
 	   @ResponseBody
-	   public Map<String, Object> addfriend(@RequestBody String friendId, @AuthUser UserVO authUser) throws Exception {
+	   public Map<String, Object> addfriend(@RequestBody String friendId, @AuthUser UserVO authUser, Model model) throws Exception {
 	      long memNo = authUser.getNo();
+	      long no = service.getUser(friendId).getNo();
 	      int type = service.addfriend(memNo ,friendId);
+	      FriendVO friendvo = service.checkfriend(memNo, no);
+	      if(model.containsAttribute("friendVO")) {
+	    	  
+	      }
+	      model.addAttribute(friendvo);
 	      
 	      List<FriendVO> friendlist = service.friendlist(memNo);      
 	      
