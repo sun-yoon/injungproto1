@@ -91,6 +91,11 @@ small {
 	color: gray;
 }
 
+.friend-img {
+	width: 30px;
+    height: 50px;
+}
+
 </style>
 </head>
 
@@ -123,7 +128,7 @@ small {
 						</tr>
 							<c:forEach items="${friendlist}" var="friendVO">
 						<tr>							
-							<td><img src='/displayFile?fileName=${friendVO.profile}' /></td>
+							<td><img src='/displayFile?fileName=${friendVO.profile}' class="friend-img" /></td>
 							<td>${friendVO.friendId}</td>
 							<td>								
 								<form id="deletefriend" action="/user/deletefriend" method="post">
@@ -209,7 +214,7 @@ small {
 					var tablestr = "";
 					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
 					for(var i=0;i<friendlist.length;i++) {
-						tablestr += "<tr><td><img src='/displayFile?fileName="+friendlist[i].profile+"' /></td><td>"+
+						tablestr += "<tr><td><img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></td><td>"+
 								friendlist[i].friendId+"</td><td>"+
 								"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
 								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+

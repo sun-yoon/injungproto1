@@ -97,6 +97,7 @@
          select f.fri_snum friendNo, m.mem_id friendId, m.mem_profile profile 
          from fri_list f, member m
          where f.fri_mem_snum = m.mem_snum and f.mem_snum = #{memNo }
+         order by friendNo desc
       ]]>
    </select>
    
