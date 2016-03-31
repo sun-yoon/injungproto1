@@ -59,7 +59,7 @@
 		<div class="hero-caption">
 			<div class="hero-text">
 				<h6 class="m-b-30">DESIGN-A-DAY BY</h6>
-				<h1 class="m-b-30">${authUser.name }</h1>
+				<h1 class="m-b-30">${userVO.id}</h1>
 				<h6 class="m-b-60">CREATIVE EDITING MY SPECIAL BLOG</h6>
 				<a href="#portfolio" class="btn btn-dark anim-scroll">VIEW LIST</a>
 			</div>

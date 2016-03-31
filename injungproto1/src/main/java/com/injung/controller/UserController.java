@@ -92,17 +92,21 @@ public class UserController {
 		logger.info("joinform get.....");
 	}
 	
-
 	@RequestMapping( value="/mypage", method = RequestMethod.GET )
 	public void mypage(){
 		logger.info("joinform get.....");
 	}
 	
 	@RequestMapping( value="/friendpage", method = RequestMethod.GET)
-	public void friendpage() {
-		logger.info("joinform get....");
-	}
+	public void friendpage(Model model, @RequestParam("no") long no) throws Exception {
 	
+	UserVO uservo = service.getUser(no);
+	model.addAttribute(uservo);
+	System.out.println(uservo.getId());
+	
+	logger.info("joinform get....");
+		
+	}
 	
 	@RequestMapping( value="/remove", method = RequestMethod.GET )
 	public String remove(HttpSession session, Model model) throws Exception {
@@ -113,13 +117,11 @@ public class UserController {
 		return "redirect:/";
 	}
 	
-	
 	@RequestMapping( value="/modifyform", method = RequestMethod.GET )
 	public void modifyform(@AuthUser UserVO authUser, Model model) throws Exception {
 		UserVO vo = service.getUser(authUser.getId());
 		model.addAttribute( "vo", vo );
 	}
-	
 	
 	@RequestMapping( value = "/modify", method = RequestMethod.POST )
 	public String modify( @AuthUser UserVO authUser, @ModelAttribute UserVO vo, HttpSession session) throws Exception {
@@ -153,7 +155,6 @@ public class UserController {
 		return map;
 		
 	}
-	
 
 	@RequestMapping( value="/findPw")
 	@ResponseBody
@@ -202,7 +203,7 @@ public class UserController {
 	      
 	   }
 	   
-	   @RequestMapping(value="/deletefriend",  method = RequestMethod.POST)
+	   @RequestMapping(value="/deletefriend", method = RequestMethod.POST)
 	   public String deletefriend(@RequestParam("deletebtn") long friendNo) throws Exception {
 	      System.out.println(friendNo);
 	      service.deletefriend(friendNo);
