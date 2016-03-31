@@ -61,7 +61,7 @@
 				<h6 class="m-b-30">DESIGN-A-DAY BY</h6>
 				<h1 class="m-b-30">${userVO.id}</h1>
 				<h6 class="m-b-60">CREATIVE EDITING MY SPECIAL BLOG</h6>
-				<a href="#portfolio" class="btn btn-dark anim-scroll">VIEW LIST</a>
+				<a href="#portfolio" class="btn btn-dark anim-scroll">VIEW </a>
 			</div>
 		</div>
 	</section>
@@ -77,7 +77,10 @@
 						<li><a href="#" data-filter=".travel">TRAVEL</a></li>
 						<li><a href="#" data-filter=".music">MUSIC</a></li>
 						<li><a href="#" data-filter=".video">VIDEO</a></li>
+						<li><button id="addfriend-btn" type="button" value="${userVO.id}">친구추가</button></li>
+						<li><button id="deletefriend-btn" type="button" value="${userVO.fri}" style="display: none">친구 삭제</button></li>
 					</ul>
+			 
 				</div>
 			</div>
 			
@@ -221,6 +224,76 @@
 	<script src="/resources/assets/js/custom.js"></script>
 	<script src="/resources/assets/js/listall.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
+	
+	<script type="text/javascript">
+	
+		$("#addfriend-btn").on("click", function() {				
+			var friendId = $("#addfriend-btn").val();
+		  	alert(friendId); 
+			$.ajax({
+				url : '/user/addfriend',
+				headers : {
+		            "Content-Type" : "application/json",
+		            "X-HTTP-Method-Override" : "POST"
+		         },
+				data : friendId,
+				dataType : 'json',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success : function(result) {
+					 
+					var type = result.type;
+					if(type==1) {
+						str = "<div>이미 친구로 등록되어 있습니다.</div>";
+					}
+					else if(type==2) {
+						str = "<div>없는 회원입니다.</div>";
+					}
+					else if(type==3) {
+						str = "<div>등록되었습니다.</div>";
+					}
+					else if(type==4) {
+						str = "<div>자신의 ID는 등록할 수 없습니다.</div>";
+					}
+					else {
+						str = "";
+					}
+					
+					$("#addfriend-btn").hide();
+					$("#deletefriend-btn").show();
+				}
+					});
+			});
+		
+		$("#deletefriend-btn").on("click", function(event) {
+			alert("클릭됨");
+			var friendNo = event.target.value;
+			alert("클릭된 버튼"+friendNo);
+			$.ajax({				
+				url : '/user/deletepagefriend',
+				headers : {
+		            "Content-Type" : "application/json",
+		            "X-HTTP-Method-Override" : "POST"
+		         },
+				data : friendNo,
+				dataType : 'json',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success: function(result) {
+					alert("ajax 작동");
+					
+					$("#deletefriend-btn").hide();
+					$("#addfriend-btn").show();
+					
+			}
+			})
+		})
+
+	</script> 
+	
+	
 
 </body>
 </html>

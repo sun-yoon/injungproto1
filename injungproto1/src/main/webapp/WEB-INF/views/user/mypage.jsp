@@ -77,6 +77,7 @@
 						<li><a href="#" data-filter=".travel">TRAVEL</a></li>
 						<li><a href="#" data-filter=".music">MUSIC</a></li>
 						<li><a href="#" data-filter=".video">VIDEO</a></li>
+						
 					</ul>
 				</div>
 			</div>

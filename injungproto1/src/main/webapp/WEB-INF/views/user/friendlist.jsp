@@ -128,9 +128,9 @@ small {
 						</tr>
 							<c:forEach items="${friendlist}" var="friendVO">
 						<tr>							
-							<td><a href="/user/friendpage?no=${friendVO.friendmemNo}">
+							<td><a href="/user/userpage?no=${friendVO.friendmemNo}">
 							<img src='/displayFile?fileName=${friendVO.profile}' class="friend-img" /></a></td>
-							<td><a href="/user/friendpage?no=${friendVO.friendmemNo}">${friendVO.friendId}</a></td>
+							<td><a href="/user/userpage?no=${friendVO.friendmemNo}">${friendVO.friendId}</a></td>
 							<td>								
 								<form id="deletefriend" action="/user/deletefriend" method="post">
 								<button id="deletebtn" name="deletebtn" type="submit" value="${friendVO.friendNo}">삭제</button>
@@ -215,9 +215,9 @@ small {
 					var tablestr = "";
 					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
 					for(var i=0;i<friendlist.length;i++) {
-						tablestr += "<tr><td><a href=\"/user/friendpage?no="+friendlist[i].friendmemNo+"\">"+
+						tablestr += "<tr><td><a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+
 								"<img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></a></td><td>"+
-								"<a href=\"/user/friendpage?no="+friendlist[i].friendmemNo+"\">"+friendlist[i].friendId+"</a></td><td>"+
+								"<a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+friendlist[i].friendId+"</a></td><td>"+
 								"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
 								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+
 								"</form></td></tr>";

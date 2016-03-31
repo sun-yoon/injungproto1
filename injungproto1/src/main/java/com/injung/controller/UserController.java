@@ -97,7 +97,7 @@ public class UserController {
 		logger.info("joinform get.....");
 	}
 	
-	@RequestMapping( value="/friendpage", method = RequestMethod.GET)
+	@RequestMapping( value="/userpage", method = RequestMethod.GET)
 	public void friendpage(Model model, @RequestParam("no") long no) throws Exception {
 	
 		UserVO uservo = service.getUser(no);
@@ -209,7 +209,17 @@ public class UserController {
 	      service.deletefriend(friendNo);
 	      return "redirect:/user/friendlist";
 	   }
-	
+	   
+	   
+	   @RequestMapping(value="/deletepagefriend",  method = RequestMethod.POST)
+	   @ResponseBody
+	   public void deletepagefriend(@RequestBody long friendNo) throws Exception {
+		 		   
+	      service.deletefriend(friendNo);
+	      
+
+	   }
+	   
 	
 	
 }
