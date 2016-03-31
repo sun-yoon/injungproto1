@@ -107,6 +107,16 @@
          from member
          where mem_id = #{friendId }
       ]]>
+   </select>
+   
+   <select id="checkfriend" parameterType="map" resultType="FriendVO" >
+   <![CDATA[
+    select f.fri_snum friendNo, m.mem_id friendId, m.mem_profile profile, f.fri_mem_snum friendmemNo
+	from fri_list f, member m
+	where m.mem_snum = #{userNo} and f.mem_snum = #{memNo} and f.fri_mem_snum =  m.mem_snum
+   ]]>
+   
+   
    </select>   
    
    <insert id="addfriend" parameterType="map">

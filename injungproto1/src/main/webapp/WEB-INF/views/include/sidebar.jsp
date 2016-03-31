@@ -259,7 +259,7 @@
 							<td>
 
 								<button id="deletebtn" name="deletebtn" type="submit"
-									value="${friendVO.firnedNo}">삭제</button>
+									value="${friendVO.friendNo}">삭제</button>
 							</td>
 
 						</tr>

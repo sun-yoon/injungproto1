@@ -20,5 +20,6 @@ public interface UserService {
 	public UserVO findPw(UserVO vo)throws Exception;
 	public List<FriendVO> friendlist(long memNo) throws Exception;
 	public int addfriend(long memNo, String friendId) throws Exception;
-	 public void deletefriend(long friendNo) throws Exception;
+	public void deletefriend(long friendNo) throws Exception;
+	public FriendVO checkfriend(long memNo ,long no) throws Exception;
 }

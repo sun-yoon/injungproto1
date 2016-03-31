@@ -24,4 +24,6 @@ public interface UserDAO {
 	public void addfriend(long memNo, long friendNo) throws Exception;
 	public Long getfriend(String friendId) throws Exception;
 	public void deletefriend(long friendNo) throws Exception;
+	public FriendVO checkfriend(long memNo, long no) throws Exception;
+	 
 }

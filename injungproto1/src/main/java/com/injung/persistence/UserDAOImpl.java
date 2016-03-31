@@ -104,4 +104,13 @@ public class UserDAOImpl implements UserDAO{
 	      session.delete(namespace+".deletefriend", friendNo);      
 	   }
 
+	@Override
+	public FriendVO checkfriend(long memNo, long no) throws Exception {
+		Map<String, Long> numMap = new HashMap<String, Long>();
+	    numMap.put("memNo", memNo);
+	    numMap.put("userNo", no);
+		FriendVO friendVo = session.selectOne(namespace+".checkfriend", numMap);
+		return friendVo;
+	}
+
 }

@@ -98,13 +98,14 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="/userpage", method = RequestMethod.GET)
-	public void friendpage(Model model, @RequestParam("no") long no) throws Exception {
-	
+	public void friendpage(Model model, @RequestParam("no") long no, @AuthUser UserVO authUser) throws Exception {
+		long memNo = authUser.getNo();
+		FriendVO friendvo = service.checkfriend(memNo, no);
 		UserVO uservo = service.getUser(no);
 		model.addAttribute(uservo);
-		System.out.println(uservo.getId());
-	
-		logger.info("joinform get....");
+		model.addAttribute(friendvo);
+		
+		
 		
 	}
 	
@@ -213,12 +214,14 @@ public class UserController {
 	   
 	   @RequestMapping(value="/deletepagefriend",  method = RequestMethod.POST)
 	   @ResponseBody
-	   public void deletepagefriend(@RequestBody long friendNo) throws Exception {
+	   public String deletepagefriend(@RequestBody long friendNo) throws Exception {
 		 		   
 	      service.deletefriend(friendNo);
 	      
-
-	   }
+	      return "";
+   }
+	   
+	
 	   
 	
 	

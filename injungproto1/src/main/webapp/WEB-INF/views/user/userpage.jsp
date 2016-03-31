@@ -78,7 +78,7 @@
 						<li><a href="#" data-filter=".music">MUSIC</a></li>
 						<li><a href="#" data-filter=".video">VIDEO</a></li>
 						<li><button id="addfriend-btn" type="button" value="${userVO.id}">친구추가</button></li>
-						<li><button id="deletefriend-btn" type="button" value="${userVO.fri}" style="display: none">친구 삭제</button></li>
+						<li><button id="deletefriend-btn" type="button" value="${friendVO.friendNo}" style="display: none">친구 삭제</button></li>
 					</ul>
 			 
 				</div>
@@ -226,7 +226,22 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.js"></script>
 	
 	<script type="text/javascript">
+	$(document).ready(function() {
+		alert("page in");
+		var friend = ${friendVO.friendNo};
+		
+		if(friend==null) {
+			$("#addfriend-btn").show();
+			$("#deletefriend-btn").hide();
+		}
+		else {
+			$("#addfriend-btn").hide();
+			$("#deletefriend-btn").show();
+		}
+	});
+	</script>
 	
+	<script type="text/javascript">	
 		$("#addfriend-btn").on("click", function() {				
 			var friendId = $("#addfriend-btn").val();
 		  	alert(friendId); 
@@ -277,11 +292,11 @@
 		            "X-HTTP-Method-Override" : "POST"
 		         },
 				data : friendNo,
-				dataType : 'json',
+				dataType : 'text',
 				processData: false,
 				contentType: false,
 				type: 'POST',
-				success: function(result) {
+				success: function() {
 					alert("ajax 작동");
 					
 					$("#deletefriend-btn").hide();
