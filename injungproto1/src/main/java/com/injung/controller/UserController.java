@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -98,12 +99,12 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="/userpage", method = RequestMethod.GET)
-	public void friendpage(Model model, @RequestParam("no") long no, @AuthUser UserVO authUser) throws Exception {
+	public void friendpage(HttpServletRequest request, @RequestParam("no") long no, @AuthUser UserVO authUser) throws Exception {
 		long memNo = authUser.getNo();
 		FriendVO friendvo = service.checkfriend(memNo, no);
 		UserVO uservo = service.getUser(no);
-		model.addAttribute(uservo);
-		model.addAttribute(friendvo);
+		request.setAttribute("userVO", uservo);
+		request.setAttribute("friendVO", friendvo);
 				
 	}
 	
@@ -187,15 +188,11 @@ public class UserController {
 	
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
 	   @ResponseBody
-	   public Map<String, Object> addfriend(@RequestBody String friendId, @AuthUser UserVO authUser, Model model) throws Exception {
+	   public Map<String, Object> addfriend(@RequestBody String friendId, @AuthUser UserVO authUser, HttpServletRequest request) throws Exception {
 	      long memNo = authUser.getNo();
 	      long no = service.getUser(friendId).getNo();
-	      int type = service.addfriend(memNo ,friendId);
-	      FriendVO friendvo = service.checkfriend(memNo, no);
-	      if(model.containsAttribute("friendVO")) {
-	    	  
-	      }
-	      model.addAttribute(friendvo);
+	      System.out.println(no);
+	      int type = service.addfriend(memNo ,friendId);	      
 	      
 	      List<FriendVO> friendlist = service.friendlist(memNo);      
 	      
@@ -203,6 +200,13 @@ public class UserController {
 	      
 	      map.put("data", friendlist);
 	      map.put("type", type);
+	      
+	      FriendVO friendvo = service.checkfriend(memNo, no);
+	      System.out.println(friendvo.getFriendNo());
+	      request.removeAttribute("friendVO");
+	      request.setAttribute("friendVO", friendvo);
+	      
+	      map.put("friend", friendvo);
 
 	      return map;
 	      

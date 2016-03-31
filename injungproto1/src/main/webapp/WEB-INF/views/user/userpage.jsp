@@ -78,7 +78,7 @@
 						<li><a href="#" data-filter=".music">MUSIC</a></li>
 						<li><a href="#" data-filter=".video">VIDEO</a></li>
 						<li><button id="addfriend-btn" type="button" value="${userVO.id}">친구추가</button></li>
-						<li><button id="deletefriend-btn" type="button" value="${friendVO.friendNo}" style="display: none">친구 삭제</button></li>
+						<li id="del"><button id="deletefriend-btn" type="button" value="${friendVO.friendNo}" style="display: none">친구 삭제</button></li>
 					</ul>
 			 
 				</div>
@@ -257,7 +257,7 @@
 				contentType: false,
 				type: 'POST',
 				success : function(result) {
-					 
+					alert("ajax 작동");
 					var type = result.type;
 					if(type==1) {
 						str = "<div>이미 친구로 등록되어 있습니다.</div>";
@@ -274,9 +274,15 @@
 					else {
 						str = "";
 					}
+					var friendNo = result.friend.friendNo;					
 					
-					$("#addfriend-btn").hide();
+					$("#addfriend-btn").hide();					
 					$("#deletefriend-btn").show();
+					
+					var deletebtn = $("#deletefriend-btn");
+					deletebtn.val(friendNo);		
+					
+					
 				}
 					});
 			});
