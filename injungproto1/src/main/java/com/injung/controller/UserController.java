@@ -100,11 +100,11 @@ public class UserController {
 	@RequestMapping( value="/friendpage", method = RequestMethod.GET)
 	public void friendpage(Model model, @RequestParam("no") long no) throws Exception {
 	
-	UserVO uservo = service.getUser(no);
-	model.addAttribute(uservo);
-	System.out.println(uservo.getId());
+		UserVO uservo = service.getUser(no);
+		model.addAttribute(uservo);
+		System.out.println(uservo.getId());
 	
-	logger.info("joinform get....");
+		logger.info("joinform get....");
 		
 	}
 	

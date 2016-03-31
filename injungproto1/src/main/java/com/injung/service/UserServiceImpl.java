@@ -97,9 +97,9 @@ public class UserServiceImpl implements UserService{
 	         }
 	      }
 	      
-	      Long friendNo = dao.getfriend(friendId);
-	      System.out.println("친구번호 : "+friendNo);
-	      if(friendNo == null) {
+	      Long friendmemNo = dao.getfriend(friendId);
+	      System.out.println("친구번호 : "+friendmemNo);
+	      if(friendmemNo == null) {
 	         System.out.println("아이디가 없습니다.");
 	         return 2;
 	      }
@@ -107,7 +107,7 @@ public class UserServiceImpl implements UserService{
 	         return 4;
 	      }
 	      else {
-	         dao.addfriend(memNo, friendNo);
+	         dao.addfriend(memNo, friendmemNo);
 	         return 3;
 	      }      
 	      

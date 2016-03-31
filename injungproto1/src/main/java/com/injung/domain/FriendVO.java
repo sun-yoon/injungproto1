@@ -6,10 +6,17 @@ public class FriendVO {
    private long memNo;
    private String friendId;
    private String profile;
+   private long friendmemNo;
    
    
+   public long getFriendmemNo() {
+	   return friendmemNo;
+   }
+   public void setFriendmemNo(long friendmemNo) {
+	   this.friendmemNo = friendmemNo;
+   }
    public long getMemNo() {
-      return memNo;
+	   return memNo;
    }
    public void setMemNo(long memNo) {
       this.memNo = memNo;

@@ -94,8 +94,8 @@ public class UserDAOImpl implements UserDAO{
 
 	   @Override
 	   public Long getfriend(String friendId) throws Exception {
-	      Long friendNo = session.selectOne(namespace+".getfriend", friendId);
-	      return friendNo;
+	      Long friendmemNo = session.selectOne(namespace+".getfriend", friendId);
+	      return friendmemNo;
 	      
 	   }
 
