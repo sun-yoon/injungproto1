@@ -98,6 +98,11 @@ public class UserController {
 		logger.info("joinform get.....");
 	}
 	
+	@RequestMapping( value="/friendpage", method = RequestMethod.GET)
+	public void friendpage() {
+		logger.info("joinform get....");
+	}
+	
 	
 	@RequestMapping( value="/remove", method = RequestMethod.GET )
 	public String remove(HttpSession session, Model model) throws Exception {
