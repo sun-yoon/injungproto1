@@ -114,13 +114,13 @@ public class UserDAOImpl implements UserDAO{
 	}
 
 	@Override
-	public FriendVO searchfriend(long memNo, String friendId) throws Exception {
+	public List<FriendVO> searchfriend(long memNo, String friendId) throws Exception {
 		FriendVO dummy = new FriendVO();
 		dummy.setFriendId(friendId);
 		dummy.setMemNo(memNo);
 		System.out.println(dummy.getFriendId()+" "+dummy.getMemNo());
-		FriendVO friendVo = session.selectOne(namespace+".searchfriend", dummy);
-		return friendVo;
+		List<FriendVO> searchlist = session.selectList(namespace+".searchfriend", dummy);
+		return searchlist;
 	}
 
 }

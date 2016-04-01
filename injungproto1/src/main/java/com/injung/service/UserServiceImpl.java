@@ -134,9 +134,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public FriendVO searchfriend(long memNo, String friendId) throws Exception {
-		FriendVO friend = dao.searchfriend(memNo, friendId);
-		return friend;
+	public List<FriendVO> searchfriend(long memNo, String friendId) throws Exception {
+		List<FriendVO> friends = dao.searchfriend(memNo, friendId);
+		return friends;
 	}	
 
 }

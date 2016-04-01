@@ -121,7 +121,7 @@
    <![CDATA[
     select f.fri_snum friendNo, m.mem_id friendId, m.mem_profile profile, f.fri_mem_snum friendmemNo
 	from fri_list f, member m
-	where m.mem_id = #{friendId } and f.fri_mem_snum=m.mem_snum and f.mem_snum = #{memNo }
+	where m.mem_id like '%' || #{friendId } || '%' and f.fri_mem_snum=m.mem_snum and f.mem_snum = #{memNo }
    ]]>   
    </select>   
    

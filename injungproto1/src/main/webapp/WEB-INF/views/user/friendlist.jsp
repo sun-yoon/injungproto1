@@ -177,7 +177,7 @@ small {
 		<script type="text/javascript">
 		$("#searchfriend-btn").on("click", function(){
 			
-			var friendId = $("#friendId-search").val();
+			var friendId = $("#friendId-search").val();			
 			
 			$.ajax({
 				url : '/user/searchfriend',
@@ -190,27 +190,22 @@ small {
 				processData: false,
 				contentType: false,
 				type: 'POST',
-				success : function(result) {
+				success : function(result) {					
+					var friendlist = result.searchfriend;
 					
-					var friend = result.searchfriend;
+					var tablestr = "";
+					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
+					for(var i=0;i<friendlist.length;i++) {
+						tablestr += "<tr><td><a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+
+								"<img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></a></td><td>"+
+								"<a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+friendlist[i].friendId+"</a></td><td>"+
+								"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
+								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+
+								"</form></td></tr>";
+					}					
 					
-					if(friend != null) {
-						var tablestr = "";
-						tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
-						
-							tablestr += "<tr><td><a href=\"/user/userpage?no="+friend.friendmemNo+"\">"+
-									"<img src='/displayFile?fileName="+friend.profile+"' class=\"friend-img\"/></a></td><td>"+
-									"<a href=\"/user/userpage?no="+friend.friendmemNo+"\">"+friend.friendId+"</a></td><td>"+
-									"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
-									"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friend.friendNo+">삭제</button>"+
-									"</form></td></tr>";				
-						
-						var friendtable = document.getElementById("friendlist-tb");
-						friendtable.innerHTML = tablestr;
-					}
-					else {
-						alert("그런친구는 없습니다.");
-					}
+					var friendtable = document.getElementById("friendlist-tb");
+					friendtable.innerHTML = tablestr;
 				}
 		})
 	})

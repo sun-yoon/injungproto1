@@ -244,7 +244,7 @@
 	<script type="text/javascript">	
 		$("#addfriend-btn").on("click", function() {				
 			var friendId = $("#addfriend-btn").val();
-		  	alert(friendId); 
+		  	 
 			$.ajax({
 				url : '/user/addfriend',
 				headers : {
@@ -257,7 +257,7 @@
 				contentType: false,
 				type: 'POST',
 				success : function(result) {
-					alert("ajax 작동");
+					
 					var type = result.type;
 					if(type==1) {
 						str = "<div>이미 친구로 등록되어 있습니다.</div>";
@@ -288,9 +288,9 @@
 			});
 		
 		$("#deletefriend-btn").on("click", function(event) {
-			alert("클릭됨");
+			
 			var friendNo = event.target.value;
-			alert("클릭된 버튼"+friendNo);
+			
 			$.ajax({				
 				url : '/user/deletepagefriend',
 				headers : {
@@ -303,7 +303,7 @@
 				contentType: false,
 				type: 'POST',
 				success: function() {
-					alert("ajax 작동");
+					
 					
 					$("#deletefriend-btn").hide();
 					$("#addfriend-btn").show();

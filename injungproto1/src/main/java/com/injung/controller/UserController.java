@@ -188,11 +188,11 @@ public class UserController {
 	 @ResponseBody
 	 public Map<String, Object> searchfriend(@RequestBody String friendId, @AuthUser UserVO authUser) throws Exception {
 	     long memNo = authUser.getNo();
-		 FriendVO friend = service.searchfriend(memNo, friendId);
+	     List<FriendVO> friends = service.searchfriend(memNo, friendId);
 		 
 		 Map<String, Object> map = new HashMap<String, Object>();
 		 
-		 map.put("searchfriend", friend);
+		 map.put("searchfriend", friends);
 		 
 		 return map;
 	 }
