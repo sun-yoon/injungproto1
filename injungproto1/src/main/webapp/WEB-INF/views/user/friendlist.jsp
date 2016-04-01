@@ -114,6 +114,9 @@ small {
 			<div class="hero-text">
 				<h3 class="m-b-30">Friend List</h3>
 				
+				<label class="block-label" for="friend">친구 검색</label> 
+				<input type="text" id="friendId-search" name="friendId-search"> 
+				<button id="searchfriend-btn" type="button">검색</button>
 				<table id="friendlist-tb" class="table table-condensed">
 						<tr>
 							<th>
@@ -172,6 +175,46 @@ small {
 		
 		
 		<script type="text/javascript">
+		$("#searchfriend-btn").on("click", function(){
+			
+			var friendId = $("#friendId-search").val();
+			
+			$.ajax({
+				url : '/user/searchfriend',
+				headers : {
+		            "Content-Type" : "application/json",
+		            "X-HTTP-Method-Override" : "POST"
+		         },
+				data : friendId,
+				dataType : 'json',
+				processData: false,
+				contentType: false,
+				type: 'POST',
+				success : function(result) {
+					
+					var friend = result.searchfriend;
+					
+					if(friend != null) {
+						var tablestr = "";
+						tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
+						
+							tablestr += "<tr><td><a href=\"/user/userpage?no="+friend.friendmemNo+"\">"+
+									"<img src='/displayFile?fileName="+friend.profile+"' class=\"friend-img\"/></a></td><td>"+
+									"<a href=\"/user/userpage?no="+friend.friendmemNo+"\">"+friend.friendId+"</a></td><td>"+
+									"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
+									"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friend.friendNo+">삭제</button>"+
+									"</form></td></tr>";				
+						
+						var friendtable = document.getElementById("friendlist-tb");
+						friendtable.innerHTML = tablestr;
+					}
+					else {
+						alert("그런친구는 없습니다.");
+					}
+				}
+		})
+	})
+		
 		$("#addfriend-btn").on("click", function() {				
 			var friendId = $("#friendId-input").val();
 			if(friendId=="") {
@@ -229,6 +272,7 @@ small {
 				}
 			})
 		})
+		
 	</script>
 	
 </body>

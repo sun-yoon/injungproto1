@@ -115,6 +115,14 @@
 	from fri_list f, member m
 	where m.mem_snum = #{userNo} and f.mem_snum = #{memNo} and f.fri_mem_snum =  m.mem_snum
    ]]>   
+   </select>
+   
+   <select id="searchfriend" parameterType="FriendVO" resultType="FriendVO" >
+   <![CDATA[
+    select f.fri_snum friendNo, m.mem_id friendId, m.mem_profile profile, f.fri_mem_snum friendmemNo
+	from fri_list f, member m
+	where m.mem_id = #{friendId } and f.fri_mem_snum=m.mem_snum and f.mem_snum = #{memNo }
+   ]]>   
    </select>   
    
    <insert id="addfriend" parameterType="map">
@@ -123,7 +131,8 @@
          into fri_list
          values(seq_fri_snum.nextval, null, #{memNo}, #{friendNo } )
       ]]>
-   </insert>   
+   </insert>
+      
    <delete id="deletefriend" parameterType="long">
       <![CDATA[
             delete from fri_list

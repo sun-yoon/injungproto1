@@ -131,6 +131,12 @@ public class UserServiceImpl implements UserService{
 			return fakefriend;
 		}
 		
+	}
+
+	@Override
+	public FriendVO searchfriend(long memNo, String friendId) throws Exception {
+		FriendVO friend = dao.searchfriend(memNo, friendId);
+		return friend;
 	}	
 
 }
