@@ -111,8 +111,8 @@
 				<ul class="dropdown-menu" role="menu">
 					<li><a href="#" data-toggle="modal" data-target="#pick-chart"><i
 							class="fa fa-pie-chart"></i> PICK CHART </a></li>
-					<li><a href="#" data-toggle="modal" data-target="#friend-list"><i
-							class="fa fa-users"></i> Friend List </a></li>
+					<li><a href="/user/friendlist" ><i
+							class="fa fa-child"></i> FRIEND LIST </a></li>
 					<li><a href="#" data-toggle="modal" data-target="#checkPw1"><i
 							class="fa  fa-pencil"></i> SETTING ACCOUNT </a></li>
 					<li><a href="#" data-toggle="modal" data-target="#checkPw2"><i

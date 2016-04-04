@@ -77,8 +77,8 @@
 						<li><a href="#" data-filter=".travel">TRAVEL</a></li>
 						<li><a href="#" data-filter=".music">MUSIC</a></li>
 						<li><a href="#" data-filter=".video">VIDEO</a></li>
-						<li><button id="addfriend-btn" type="button" value="${userVO.id}">친구추가</button></li>
-						<li id="del"><button id="deletefriend-btn" type="button" value="${friendVO.friendNo}" style="display: none">친구 삭제</button></li>
+						<li><button id="addfriend-btn" class="btn btn-primary btn-round btn-xs" type="button" value="${userVO.id}">#Following</button></li>
+						<li id="del"><button id="deletefriend-btn" class="btn btn-danger btn-round btn-xs" type="button" value="${friendVO.friendNo}" style="display: none">#Unfollowing</button></li>
 					</ul>
 			 
 				</div>

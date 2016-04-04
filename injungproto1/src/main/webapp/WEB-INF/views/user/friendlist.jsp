@@ -92,8 +92,8 @@ small {
 }
 
 .friend-img {
-	width: 30px;
-    height: 50px;
+	width: 200px;
+    height: 230px;
 }
 
 </style>
@@ -105,51 +105,118 @@ small {
 	<c:import url="/WEB-INF/views/include/sidebar.jsp"></c:import>
 	<!-- ----------------------------------------------------------------------------------------------------------- -->
 	<!-- WRAPPER -->
-	<div class="wrapper">
+	
 
 		<!--  header -->
 		<c:import url="/WEB-INF/views/include/header2.jsp"></c:import>
 
-		<div class="hero-caption">
-			<div class="hero-text">
-				<h3 class="m-b-30">Friend List</h3>
+		<div class="wrapper">
+			<section class="module bg-dark-30" data-background="/resources/assets/images/friend.jpg">
 				
-				<label class="block-label" for="friend">친구 검색</label> 
-				<input type="text" id="friendId-search" name="friendId-search"> 
-				<button id="searchfriend-btn" type="button">검색</button>
-				<table id="friendlist-tb" class="table table-condensed">
-						<tr>
-							<th>
-								<h2>프로필</h2>
-							</th>
-							<th>
-								<h2>친구ID</h2>
-							</th>
-							<th>
-								<h2>삭제</h2>
-							</th>
-						</tr>
-							<c:forEach items="${friendlist}" var="friendVO">
-						<tr>							
-							<td><a href="/user/userpage?no=${friendVO.friendmemNo}">
-							<img src='/displayFile?fileName=${friendVO.profile}' class="friend-img" /></a></td>
-							<td><a href="/user/userpage?no=${friendVO.friendmemNo}">${friendVO.friendId}</a></td>
-							<td>								
-								<form id="deletefriend" action="/user/deletefriend" method="post">
-								<button id="deletebtn" name="deletebtn" type="submit" value="${friendVO.friendNo}">삭제</button>
-								</form>
-							</td>
-						</tr>
-							</c:forEach>
-					</table>
-
-					<label class="block-label" for="friend">친구 추가</label> 
-					<input type="text" id="friendId-input" name="friendId-input"> 
-					<button id="addfriend-btn" type="button">친구추가</button>
-					<div id="add-message"></div>						
+					<div class="col-md-12" style="height: 200px">
+					 		<h1 class="hero-title" style="text-align: center"><a href="/user/friendlist">Friend List</a></h1>
+					</div>
+					
+				<div class="container-fluid container-custom">
+				
+					<div class="row">
+						<div class="col-md-3">
+							<div class="counter text-light">
+								<div class="counter-icon">
+									<i class="fa fa-hand-pointer-o"></i>
+								</div>
+								<div class="counter-header">
+									<h4 class="counter-title">
+										<span class="counter-timer" data-from="0" data-to="124">0</span>
+									</h4>
+								</div>
+								<div class="counter-content">
+									<h5>Following</h5>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-3">
+							<div class="counter text-light">
+								<div class="counter-icon">
+									<i class="fa fa-hand-peace-o"></i>
+								</div>
+								<div class="counter-header">
+									<h4 class="counter-title">
+										<span class="counter-timer" data-from="0" data-to="50">0</span>
+									</h4>
+								</div>
+								<div class="counter-content">
+									<h5>Follower</h5>
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-md-3">
+						
+							<div class="counter text-light">
+								<div class="counter-icon">
+									<i class="fa fa-hand-spock-o"></i>
+								</div>
+								<div style="height: 40px">
+									
+								</div>
+								<div class="counter-header" style="height: 35px">
+									<input type="text"  class="friendId-search" id="friendId-search" name="friendId-search" style="color: black">									
+								</div>
+								<div class="counter-content">
+									<h5><a href="#" id="searchfriend-btn">Search Friend</a></h5>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-3">		
+							<div class="counter text-light">
+								<div class="counter-icon">
+									<i class="fa fa-hand-paper-o"></i>
+								</div>
+								<div style="height: 40px">
+									
+								</div>
+								<div class="counter-header" style="height: 35px">
+									<input type="text" id="friendId-input" name="friendId-input" style="color: black"> 
+								</div>
+								<div class="counter-content">
+									<div id="add-message"></div>	
+									<h5><a href="#"id="addfriend-btn"> Add Friend</a></h5>
+								</div>
+							</div>
+						</div>
+					</div>
 				</div>
+			
+			</section>
+			
+			<section class="module">
+				<div class="container-fluid container-custom">
+					<div class="row" id="friendlist-tb">
+						<c:forEach items="${friendlist}" var="friendVO">
+							<div class="col-sm-3" >
+								<div class="team-item m-b-sm-40">
+									<a href="/user/userpage?no=${friendVO.friendmemNo}">
+									<img src='/displayFile?fileName=${friendVO.profile}' class="friend-img" /></a>
+								</div>
+								<div class="team-inner" style="text-align: center">
+									<h4 class="team-name font-alt"><a href="/user/userpage?no=${friendVO.friendmemNo}"style="text-transform:none">${friendVO.friendId}</a></h4>
+									<form id="deletefriend" action="/user/deletefriend" method="post">
+										<button id="deletebtn" class="btn btn-danger btn-round btn-xs" name="deletebtn" type="submit" value="${friendVO.friendNo}">Unfollowing</button>
+									</form>
+								</div>
+								<div style="height: 50px">
+								</div>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
+			</section>
+			
+			
 			</div>
-		</div>
+		
 
 	<!-- JAVASCRIPT FILES -->
 	<script src="/resources/assets/js/jquery-2.1.4.min.js"></script>
@@ -183,29 +250,31 @@ small {
 				url : '/user/searchfriend',
 				headers : {
 		            "Content-Type" : "application/json",
-		            "X-HTTP-Method-Override" : "POST"
+					"X-HTTP-Method-Override" : "POST"
 		         },
 				data : friendId,
 				dataType : 'json',
 				processData: false,
 				contentType: false,
 				type: 'POST',
-				success : function(result) {					
+				success : function(result){					
 					var friendlist = result.searchfriend;
 					
-					var tablestr = "";
-					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
+					var liststr = "";
+					
 					for(var i=0;i<friendlist.length;i++) {
-						tablestr += "<tr><td><a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+
-								"<img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></a></td><td>"+
-								"<a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+friendlist[i].friendId+"</a></td><td>"+
+						liststr += "<div class=\"col-sm-3\" ><div class=\"team-item m-b-sm-40\"><a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+
+								"<img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></a></div>"+
+								"<div class=\"team-inner\" style=\"text-align: center\"><h4 class=\"team-name font-alt\">"+
+								"<a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\"style=\"text-transform:none\">"+friendlist[i].friendId+"</a></h4>"+
 								"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
-								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+
-								"</form></td></tr>";
+								"<button id=\"deletebtn\" class=\"btn btn-danger btn-round btn-xs\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">Unfollowing</button>"+
+								"</form></div><div style=\"height: 50px\"></div></div>";
+								
 					}					
 					
 					var friendtable = document.getElementById("friendlist-tb");
-					friendtable.innerHTML = tablestr;
+					friendtable.innerHTML = liststr;
 				}
 		})
 	})
@@ -250,19 +319,20 @@ small {
 					
 					var friendlist = result.data;
 					
-					var tablestr = "";
-					tablestr = "<tr><th><h2>프로필</h2></th><th><h2>이름</h2></th><th><h2>삭제</h2></th></tr>";
+					var liststr = "";
+					
 					for(var i=0;i<friendlist.length;i++) {
-						tablestr += "<tr><td><a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+
-								"<img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></a></td><td>"+
-								"<a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+friendlist[i].friendId+"</a></td><td>"+
-								"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
-								"<button id=\"deletebtn\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">삭제</button>"+
-								"</form></td></tr>";
+						liststr  += "<div class=\"col-sm-3\" ><div class=\"team-item m-b-sm-40\"><a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\">"+
+									"<img src='/displayFile?fileName="+friendlist[i].profile+"' class=\"friend-img\"/></a></div>"+
+									"<div class=\"team-inner\" style=\"text-align: center\"><h4 class=\"team-name font-alt\">"+
+									"<a href=\"/user/userpage?no="+friendlist[i].friendmemNo+"\"style=\"text-transform:none\">"+friendlist[i].friendId+"</a></h4>"+
+									"<form id=\"deletefriend\" action=\"/user/deletefriend\" method=\"post\">"+
+									"<button id=\"deletebtn\" class=\"btn btn-danger btn-round btn-xs\" name=\"deletebtn\" type=\"submit\" value="+friendlist[i].friendNo+">Unfollowing</button>"+
+									"</form></div><div style=\"height: 50px\"></div></div>";
 					}					
 					
 					var friendtable = document.getElementById("friendlist-tb");
-					friendtable.innerHTML = tablestr;
+					friendtable.innerHTML = liststr;
 					
 				}
 			})
