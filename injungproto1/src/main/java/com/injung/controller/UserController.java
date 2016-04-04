@@ -99,12 +99,18 @@ public class UserController {
 	}
 	
 	@RequestMapping( value="/userpage", method = RequestMethod.GET)
-	public void friendpage(HttpServletRequest request, @RequestParam("no") long no, @AuthUser UserVO authUser) throws Exception {
+	public String friendpage(HttpServletRequest request, @RequestParam("no") long no, @AuthUser UserVO authUser) throws Exception {
 		long memNo = authUser.getNo();
 		FriendVO friendvo = service.checkfriend(memNo, no);
 		UserVO uservo = service.getUser(no);
 		request.setAttribute("userVO", uservo);
 		request.setAttribute("friendVO", friendvo);
+		
+		if(memNo == no) {
+			return "redirect:/user/mypage";
+		}
+		
+		return "/user/userpage";
 				
 	}
 	
@@ -202,8 +208,14 @@ public class UserController {
 	   @RequestMapping(value="/addfriend", method = RequestMethod.POST)
 	   @ResponseBody
 	   public Map<String, Object> addfriend(@RequestBody String friendId, @AuthUser UserVO authUser, HttpServletRequest request) throws Exception {
-	      long memNo = authUser.getNo();
-	      long no = service.getUser(friendId).getNo();
+	      long memNo = authUser.getNo();	      
+	      long no;
+	      if(service.getUser(friendId)!=null) {
+	    	  no = service.getUser(friendId).getNo();
+	      }
+	      else {
+	    	  no = 0;
+	      }	      
 	      System.out.println(no);
 	      int type = service.addfriend(memNo ,friendId);	      
 	      
